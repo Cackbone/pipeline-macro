@@ -5,7 +5,7 @@ macro_rules! __pipeline_fn {
     (($fn:ident($($args:expr),*)), $ret:expr) => {
         $fn($ret $(,$arg)*);
     };
-    ($fn:ident, $ret:expr) => {
+    ($fn:expr, $ret:expr) => {
         $fn($ret)
     };
 }
@@ -21,12 +21,12 @@ macro_rules! __pipeline_fn {
 /// # fn function1(i: InputType) -> InputType { i }
 /// # fn function2(i: InputType) -> OutputType { OutputType {} }
 /// pipeline! {
-///      InputType => function1 => function2 -> OutputType
+///      InputType => function1 => function2 ;-> OutputType
 /// };
 /// ```
 #[macro_export]
 macro_rules! pipeline {
-    ($in:ty => $($fns:ident) => * -> $out:ty) => {
+    ($in:ty => $($fns:expr) => * ;-> $out:ty) => {
         {{
             Pipeline { fun : (| input: $in | {
                 let result = input;
