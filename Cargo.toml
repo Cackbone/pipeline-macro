@@ -1,6 +1,8 @@
 [package]
 name = "pipeline-macro"
+description = "A crate to create a pipeline in Rust"
 version = "0.1.0"
+license = "MIT"
 authors = ["Cedric Legendre <cedric.legendre@epitech.eu>"]
 edition = "2018"
 
