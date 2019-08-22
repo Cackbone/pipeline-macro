@@ -1,6 +1,7 @@
 pipeline-macro
 ==============
 
+![crates.io](https://img.shields.io/crates/v/pipeline-macro.svg)
 
 A crate to create a pipeline in Rust.
 
