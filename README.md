@@ -15,9 +15,9 @@ A crate to create a pipeline in Rust.
     let pipeline = pipeline! {
         i32
         => add2
-        -> div_by_3
-        -> mul_by_83
-        => f64
+        => div_by_3
+        => mul_by_83
+        -> f64
     };
 
     let result = pipeline.run(3); // ~= 110.6666..

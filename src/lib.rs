@@ -12,9 +12,9 @@
 //! let pipeline = pipeline! {
 //!     i32
 //!     => add2
-//!     -> div_by_3
-//!     -> mul_by_83
-//!     => f64
+//!     => div_by_3
+//!     => mul_by_83
+//!     -> f64
 //! };
 //!
 //! let result = pipeline.run(3); // ~= 110.6666..
@@ -44,7 +44,13 @@ mod tests {
 
     #[test]
     fn basic_pipeline() {
-        let pipeline = pipeline! { i32 => add2 -> div_by_3 -> mul_by_83 => f32 };
+        let pipeline = pipeline! {
+            i32
+            => add2
+            => div_by_3
+            => mul_by_83
+            -> f32
+        };
         let result = pipeline.run(2);
 
         assert_eq!(result, ((2 + 2) as f64 / 3.0) as f32 * 83.0);

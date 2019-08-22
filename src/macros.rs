@@ -10,6 +10,7 @@ macro_rules! __pipeline_fn {
     };
 }
 
+
 /// Return new instance of pipeline struct
 ///
 /// # Syntax:
@@ -20,12 +21,12 @@ macro_rules! __pipeline_fn {
 /// # fn function1(i: InputType) -> InputType { i }
 /// # fn function2(i: InputType) -> OutputType { OutputType {} }
 /// pipeline! {
-///      InputType => function1 -> function2 => OutputType
+///      InputType => function1 => function2 -> OutputType
 /// };
 /// ```
 #[macro_export]
 macro_rules! pipeline {
-    ($in:ty => $($fns:tt) -> + => $out:ty) => {
+    ($in:ty => $($fns:ident) => * -> $out:ty) => {
         {{
             Pipeline { fun : (| input: $in | {
                 let result = input;
@@ -33,10 +34,10 @@ macro_rules! pipeline {
                 $(
                     let result = $crate::__pipeline_fn!($fns, result);
                 )*
-                return result;
+                    return result;
             })}
         }}
-    }
+    };
 }
 
 
