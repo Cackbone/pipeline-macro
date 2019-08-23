@@ -21,7 +21,7 @@ A crate to create a pipeline in Rust.
         ;-> f64
     };
 
-    let result = pipeline.run(3); // ~= 110.6666..
+    let result = pipeline.run(3)?; // ~= 110.6666..
 ```
 
 
@@ -35,7 +35,7 @@ A crate to create a pipeline in Rust.
         ;-> f64
     };
 
-    let result = pipeline.run(3); // ~= 110.6666..
+    let result = pipeline.run(3)?; // ~= 110.6666..
 ```
 
 

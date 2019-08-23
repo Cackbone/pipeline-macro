@@ -10,6 +10,7 @@
 //! # fn div_by_3(i: i32) -> f64 { (i as f64) / 3.0 }
 //! # fn mul_by_83(i: f64) -> f32 { (i as f32) * 83.0 }
 //!
+//! # fn run_pipeline() -> Result<(), &'static str> {
 //! let pipeline = pipeline! {
 //!     i32
 //!     => add2
@@ -18,7 +19,9 @@
 //!     ;-> f64
 //! };
 //!
-//! let result = pipeline.run(3); // ~= 110.6666..
+//! let result = pipeline.run(3)?; // ~= 110.6666..
+//! # Ok(())
+//! # }
 //! ```
 //!
 //! ## Closure example:
@@ -27,6 +30,7 @@
 //! # fn div_by_3(i: i32) -> f64 { (i as f64) / 3.0 }
 //! # fn mul_by_83(i: f64) -> f32 { (i as f32) * 83.0 }
 //!
+//! # fn run_pipeline() -> Result<(), &'static str> {
 //! let pipeline = pipeline! {
 //!     i32
 //!     => |i: i32| i + 2
@@ -35,7 +39,9 @@
 //!     ;-> f64
 //! };
 //!
-//! let result = pipeline.run(3); // ~= 110.6666..
+//! let result = pipeline.run(3)?; // ~= 110.6666..
+//! # Ok(())
+//! # }
 //! ```
 mod pipeline;
 mod macros;
@@ -61,7 +67,7 @@ mod tests {
     }
 
     #[test]
-    fn basic_pipeline() {
+    fn basic_pipeline() -> Result<(), &'static str> {
         let pipeline = pipeline! {
             i32
             => add2
@@ -69,14 +75,15 @@ mod tests {
             => mul_by_83
             ;-> f32
         };
-        let result = pipeline.run(2);
+        let result = pipeline.run(2)?;
 
         assert_eq!(result, ((2 + 2) as f64 / 3.0) as f32 * 83.0);
+        Ok(())
     }
 
 
     #[test]
-    fn pipeline_with_closures() {
+    fn pipeline_with_closures() -> Result<(), &'static str> {
         let pipeline = pipeline! {
             i32
             => |i: i32| i + 2
@@ -84,8 +91,9 @@ mod tests {
             => mul_by_83
             ;-> f32
         };
-        let result = pipeline.run(2);
+        let result = pipeline.run(2)?;
 
         assert_eq!(result, ((2 + 2) as f64 / 3.0) as f32 * 83.0);
+        return Ok(())
     }
 }

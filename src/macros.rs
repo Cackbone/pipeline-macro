@@ -10,7 +10,6 @@ macro_rules! __pipeline_fn {
     };
 }
 
-
 /// Return new instance of pipeline struct
 ///
 /// # Syntax:
@@ -34,7 +33,7 @@ macro_rules! pipeline {
                 $(
                     let result = $crate::__pipeline_fn!($fns, result);
                 )*
-                    return result;
+                Ok(result)
             })}
         }}
     };
